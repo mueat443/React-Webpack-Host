@@ -23,9 +23,9 @@ const ProductPage = () => {
       <Navbar />
       <div className="flex flex-col justify-center items-center">
       <FlutterMainApp path={"catalog"} flutterCss={flutterCss}/>
-      {/* <div style={{ display: "none" }}> */}
-          {/* <ProductComponent /> */}
-        {/* </div> */}
+      <div style={{ display: "none" }}>
+          <ProductComponent />
+        </div>
       </div>
     </div>
   );

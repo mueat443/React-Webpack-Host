@@ -13,7 +13,7 @@ const ProductComponent = () => {
     }
 
     const onFlutterReady = (event) => {
-      console.log("asdasdasdasdasdasdasdasdasdasdas::::::::::::::",event.detail.getStateAsString());
+      console.log("::::::::::::::",event.detail.getStateAsString());
       
       const data = JSON.parse(event.detail.getStateAsString());
       // console.log("asdasdasdasdasdasdasdasdasdasdas",data);

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { LanguageStateContext } from "../context/LanguageStateContext";
+import { ProductStateContext } from "../context/ProductStateContext"; // นำเข้า LoginStateContext
 import { LoginStateContext } from "../context/LoginStateContext"; // นำเข้า LoginStateContext
 import ProductComponent from "./ProductComponent";
 import { Link } from "react-router-dom";
@@ -13,6 +14,7 @@ const WeatherState = () => {
   });
   const { languageState } = useContext(LanguageStateContext);
   const { userName } = useContext(LoginStateContext);
+  const { cart } = useContext(ProductStateContext);
 
   const countryOptions = ["Tokyo", "Bangkok", "London", "NewYork", "Seoul"];
 
@@ -58,6 +60,7 @@ const WeatherState = () => {
           </option>
         ))}
       </select>
+      <p>cart: {cart.length}</p>
       {/* <ProductComponent /> */}
     </div>
   );
