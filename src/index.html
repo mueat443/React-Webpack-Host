@@ -12,7 +12,16 @@
   />
   <title>host</title>
   <script src="/interop.js"></script>
-  <script src="http://localhost:8080/flutter.js" defer></script>
+  <script>
+    window.notifyStateChangeShop = function(state) {
+      console.log('Received state:', state);
+    };
+    window.notifyStateChangeSocket = function(state) {
+    console.log('Received state:', state);
+  };
+  </script>
+  
+  <!-- <script src="http://localhost:8080/flutter.js" defer></script> -->
 </head>
 
 <body>

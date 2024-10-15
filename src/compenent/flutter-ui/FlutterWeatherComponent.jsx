@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useRef  } from 'react';
 
 const flutterCss = {
   border: '1px solid #eee',
   borderRadius: '5px',
-  width: '450px',  
-  height: '800px', 
+  width: '1500px',  
+  height: '450px', 
   transition: 'all 150ms ease-in-out',
   overflow: 'hidden',
   position: 'relative', 
 };
-const FlutterApp = () => {
+const FlutterWeatherApp = () => {
+
   useEffect(() => {
     const loadScript = (src) => {
       return new Promise((resolve, reject) => {
@@ -23,10 +24,10 @@ const FlutterApp = () => {
 
     const initializeFlutter = async () => {
       try {
-        await loadScript('http://localhost:8080/flutter.js');     
+        await loadScript('http://localhost:8082/flutter.js');     
         if (window._flutter) {
-          const targetElement = document.getElementById('flutter-container');
-          const assetBase = 'http://localhost:8080/';
+          const targetElement = document.getElementById('flutter-weather-container');
+          const assetBase = 'http://localhost:8082/';
           const entrypointUrl = `${assetBase}main.dart.js`;
           
           _flutter.loader.loadEntrypoint({
@@ -54,9 +55,10 @@ const FlutterApp = () => {
       }
     };
     initializeFlutter();
+    
   }, []);
 
-  return <div id="flutter-container" style={flutterCss}></div>;
+  return <div id="flutter-weather-container" style={flutterCss}></div>;
 };
 
-export default FlutterApp;
+export default FlutterWeatherApp;

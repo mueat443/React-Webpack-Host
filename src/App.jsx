@@ -1,32 +1,57 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ReactDOM from "react-dom";
-import FlutterApp from "./FlutterComponent";
-import LanStateComponent from "./LanStateComponent";
-import FlutterManageProviderComponent from "./FlutterManageProviderComponent";
+import ConnectSocketPage from "./page/ConnectSocketPage";
 import "./index.scss";
+import FlutterWithReactPage from "./page/LanguagePage";
+import { BrowserRouter as Router, Routes, Route,useNavigate  } from "react-router-dom";
+import { LanguageStateProvider } from "./context/LanguageStateContext";
+import { LoginStateProvider } from "./context/LoginStateContext";
+import LogInPage from "./page/LoginPage";
+import ProfilePage from "./page/ProfilePage";
+import ProductPage from "./page/ProductPage";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ProductStateProvider } from "./context/ProductStateContext";
+import SynconyzePage from "./page/SynconyzePage"; // นำเข้าหน้า Synconyze ที่เราจะสร้าง
+import ProfileWithRedirect from "./page/SynconyzePage"; // นำเข้าหน้า Synconyze ที่เราจะสร้าง
+import { FlutterProvider } from './context/FlutterInitializer'
+// import AdjustFlutterContainer from "./page/ProviderPage"; // นำเข้าหน้า Synconyze ที่เราจะสร้าง
+import {FlutterStylesProvider} from './context/FlutterStyleContext'
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#b8f416", // สีหลัก (Primary Color)
+    },
+  },
+});
 
 const App = () => {
+  
   return (
-    <div className="flex flex-col font-kanit w-screen h-screen">
-      <p className="bg-red-500 text-center h-20 align-middle mt-10 text-4xl">React + Flutter (Provider)</p>
-      <div className="w-full flex flex-row ">
-        <div className="bg-red-300 flex flex-col w-full ml-80 ">
-          <div className="w-full  mt-32">
-            <FlutterManageProviderComponent />
-          </div>
-          <div className="w-full">
-            <LanStateComponent />
-          </div>
-        </div>
-
-        <div className="flex justify-center w-full  mr-80">
-          <FlutterApp />
-        </div>
-      </div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <FlutterStylesProvider>
+      {/* <FlutterProvider src="http://localhost:8089/flutter.js"> */}
+      <FlutterProvider>
+        <LoginStateProvider>
+          <LanguageStateProvider>
+            <ProductStateProvider>
+              <Router>
+                <Routes>
+                  <Route path="/" element={<LogInPage />} />
+                  <Route path="/language" element={<FlutterWithReactPage />} />
+                  <Route path="/coreLan" element={<ConnectSocketPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/product" element={<ProductPage />} />
+                  <Route path="/synconyze" element={<SynconyzePage />} />
+                  {/* <Route path="/provider" element={<AdjustFlutterContainer />} /> */}
+                </Routes>
+              </Router>
+            </ProductStateProvider>
+          </LanguageStateProvider>
+        </LoginStateProvider>
+        </FlutterProvider>
+        </FlutterStylesProvider>
+    </ThemeProvider>
   );
 };
-ReactDOM.render(
-  <App />,
-  document.getElementById("app")
-);
+
+ReactDOM.render(<App />, document.getElementById("app"));

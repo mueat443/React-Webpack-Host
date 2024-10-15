@@ -4,7 +4,7 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const deps = require("./package.json").dependencies;
 module.exports = {
   output: {
-    publicPath: "http://localhost:3000/",
+    publicPath: "http://localhost:3001/",
   },
 
   resolve: {
@@ -12,12 +12,16 @@ module.exports = {
   },
 
   devServer: {
-    port: 3000,
+    port: 3001,
     historyApiFallback: true,
   },
 
   module: {
     rules: [
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'asset/resource',
+      },
       {
         test: /\.m?js/,
         type: "javascript/auto",
