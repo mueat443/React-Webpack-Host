@@ -2,11 +2,15 @@ import React, { useContext, useState, useEffect } from "react";
 import "../index.scss";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../compenent/Navbar";
-import { useFlutter } from "../context/FlutterProvider";
 import {useFlutterStyles} from '../context/FlutterStyleContext'
 
+import FlutterContainer from "../compenent/FlutterContainer";
+import { useFlutter } from "../context/FlutterProvider";
+import { Outlet } from "react-router-dom";
+import { KeepAlive } from "react-keep-alive";
+
 const FlutterWithReactPage = () => {
-  const { initialized  } = useFlutter();
+  const { initialized,containerRef  } = useFlutter();
   const { setFlutterStyles } = useFlutterStyles();
 
   const navigate = useNavigate();
@@ -54,6 +58,12 @@ const FlutterWithReactPage = () => {
     <div className="flex flex-col font-kanit w-screen h-screen">
       <div className="w-full flex flex-col justify-center">
       <Navbar />
+      <KeepAlive name="flutter-container">
+      <FlutterContainer
+          containerRef={containerRef}
+        />
+      </KeepAlive>
+      <Outlet />
       </div>
     </div>
   );

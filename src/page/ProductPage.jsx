@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
 import Navbar from "../compenent/Navbar";
 import {useFlutterStyles} from '../context/FlutterStyleContext'
+
+
+import FlutterContainer from "../compenent/FlutterContainer";
 import { useFlutter } from "../context/FlutterProvider";
+import { Outlet } from "react-router-dom";
+import { KeepAlive } from "react-keep-alive";
 
 const ProductPage = () => {
   const { setFlutterStyles } = useFlutterStyles();
-  const { initialized, renderFlutterApp } = useFlutter();
+  const { initialized, containerRef } = useFlutter();
 
   useEffect(() => {
     setFlutterStyles({
@@ -42,8 +47,12 @@ useEffect(() => {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col justify-center items-center">
-      </div>
+      <KeepAlive name="flutter-container">
+      <FlutterContainer
+          containerRef={containerRef}
+        />
+      </KeepAlive>
+      <Outlet />
     </div>
   );
 };

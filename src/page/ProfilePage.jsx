@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
 import WeatherState from "../compenent/WeatherComponent";
 import Navbar from "../compenent/Navbar";
-import { useFlutter } from "../context/FlutterProvider";
 import {useFlutterStyles} from '../context/FlutterStyleContext'
 
+
+import FlutterContainer from "../compenent/FlutterContainer";
+import { useFlutter } from "../context/FlutterProvider";
+import { Outlet } from "react-router-dom";
+import { KeepAlive } from "react-keep-alive";
+
 const ProfilePage = () => {
-  const { initialized } = useFlutter(); 
+  const { initialized ,containerRef} = useFlutter(); 
   const { setFlutterStyles } = useFlutterStyles();
 
   useEffect(() => {
@@ -46,8 +51,12 @@ const ProfilePage = () => {
     <div>
       <Navbar />
       <div className="flex flex-col justify-center items-center">
-        <div style={flutterCss}>
-        </div>
+      <KeepAlive name="flutter-container">
+      <FlutterContainer
+          containerRef={containerRef}
+        />
+      </KeepAlive>
+      <Outlet />
         <WeatherState />
       </div>
     </div>

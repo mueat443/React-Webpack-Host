@@ -65,8 +65,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const FlutterContainer = ({ containerRef, isVisible }) => {
-  return ReactDOM.createPortal(
+const FlutterContainer = ({ containerRef }) => {
+  return (
     <div
       id="flutter-main-container"
       ref={containerRef}
@@ -85,8 +85,7 @@ const FlutterContainer = ({ containerRef, isVisible }) => {
         margin: '0 auto',      
       }}
     >
-    </div>,
-    document.body 
+    </div>
   );
 };
 

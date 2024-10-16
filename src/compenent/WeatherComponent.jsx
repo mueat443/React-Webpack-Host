@@ -12,7 +12,7 @@ const WeatherState = () => {
   const { userName } = useContext(LoginStateContext);
 
   return (
-    <div className="mt-36 font-kanit text-3xl w-full pl-52">
+    <div className="mt-10 font-kanit text-3xl w-full pl-52">
       <p>
         {usernameConvert(languageState)}: {userName}
       </p>
@@ -71,8 +71,3 @@ function selectLanguageConvert(languageKey) {
     return "Unknown Language";
   }
 }
-// const [country, setCountry] = useState(() => {
-//   const savedCountry = localStorage.getItem("selectedCountry");
-//   return savedCountry ? savedCountry : "--Please choose an option--"; 
-// });
-// const countryOptions = ["Tokyo", "Bangkok", "London", "NewYork", "Seoul"];
