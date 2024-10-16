@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import {useFlutterStyles} from '../context/FlutterStyleContext'
+import {useFlutterStyles} from './FlutterStyleContext'
 const FlutterContext = createContext();
 
 export const FlutterProvider = ({ children, src = 'http://localhost:8089/flutter.js' }) => {
@@ -8,6 +8,7 @@ export const FlutterProvider = ({ children, src = 'http://localhost:8089/flutter
   const containerRef = useRef(document.createElement('div')); // สร้าง div นอก React tree
   const [initialized, setInitialized] = useState(false);
   const { flutterStyles } = useFlutterStyles(); // รับค่า styles
+
 
   const flutterCss = {
     border: '1px solid #eee',
@@ -17,13 +18,16 @@ export const FlutterProvider = ({ children, src = 'http://localhost:8089/flutter
     transition: 'all 150ms ease-in-out',
     overflow: 'hidden',
     position: 'relative', 
+    display: 'flex',            
+    justifyContent: 'center',   
+    alignItems: 'center',       
+    margin: '0 auto',           
     ...flutterStyles,
   };
   
 
   useEffect(() => {
-    document.body.appendChild(containerRef.current); // เพิ่ม container นอก React tree
-
+    document.body.appendChild(containerRef.current);
     const loadScript = (src) => {
       return new Promise((resolve, reject) => {
         const script = document.createElement('script');
@@ -65,7 +69,6 @@ export const FlutterProvider = ({ children, src = 'http://localhost:8089/flutter
     initializeFlutter();
 
     return () => {
-      // ไม่ทำลาย DOM ของ Flutter app เมื่อ unmount FlutterProvider
       containerRef.current.style.display = 'none'; 
     };
   }, [src]);
@@ -73,7 +76,6 @@ export const FlutterProvider = ({ children, src = 'http://localhost:8089/flutter
   return (
     <FlutterContext.Provider value={{ flutterInstance: flutterInstance.current, initialized }}>
       {children}
-      {/* Portal: Flutter container นอก React tree */}
       {ReactDOM.createPortal(
         <div  id="flutter-main-container" ref={containerRef} style={flutterCss} />,
         document.body

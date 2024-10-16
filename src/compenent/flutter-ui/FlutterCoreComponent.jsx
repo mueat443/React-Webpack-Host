@@ -72,11 +72,10 @@ const flutterCss = {
   position: 'relative',
 };
 
-// เก็บ Flutter app ไว้นอก component เพื่อใช้ instance เดิม
 let flutterAppInstance = null;
 
 const FlutterCoreApp = () => {
-  const containerRef = useRef(null); // ใช้ useRef แทน document.getElementById
+  const containerRef = useRef(null); 
 
   useEffect(() => {
     const loadScript = (src) => {
@@ -91,7 +90,6 @@ const FlutterCoreApp = () => {
 
     const initializeFlutter = async () => {
       try {
-        // เช็คว่า Flutter instance ได้ถูกโหลดแล้วหรือยัง
         if (!flutterAppInstance) {
           await loadScript('http://localhost:8089/flutter.js');
           if (window._flutter) {
@@ -108,7 +106,7 @@ const FlutterCoreApp = () => {
                     hostElement: targetElement,
                     assetBase: assetBase,
                   });
-                  flutterAppInstance = await appRunner.runApp(); // เก็บ instance ของแอป Flutter
+                  flutterAppInstance = await appRunner.runApp(); 
                   console.log('Flutter app initialized:', flutterAppInstance);
                 } catch (error) {
                   console.error('Error initializing Flutter app:', error);
@@ -119,7 +117,6 @@ const FlutterCoreApp = () => {
             console.error('_flutter is not defined.');
           }
         } else {
-          // ใช้ instance เดิมของ Flutter app
           console.log('Using existing Flutter app instance.');
           containerRef.current.appendChild(flutterAppInstance.hostElement);
         }
@@ -131,7 +128,6 @@ const FlutterCoreApp = () => {
     initializeFlutter();
 
     return () => {
-      // ถ้าต้องการลบ Flutter instance เมื่อ component unmount
       if (flutterAppInstance) {
         console.log('Removing Flutter app instance.');
         flutterAppInstance.hostElement.remove();

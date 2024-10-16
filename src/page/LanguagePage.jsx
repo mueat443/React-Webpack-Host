@@ -10,25 +10,58 @@ import FlutterFix from "../compenent/poc/Flutter-provider-fix";
 import LanStateComponent from "../compenent/LanguageComponent"
 import FlutterWebAisApp from "../compenent/flutter-ui/FlutterWebAisComponent"
 import Navbar from "../compenent/Navbar";
+import { useFlutter } from "../context/FlutterProvider";
+import {useFlutterStyles} from '../context/FlutterStyleContext'
+
 const FlutterWithReactPage = () => {
+  const { initialized  } = useFlutter();
+  const { setFlutterStyles } = useFlutterStyles();
 
   const navigate = useNavigate();
-  useEffect(() => {
+  useEffect(() => {                                             
     window.navigateToPage = (path) => {
       navigate(path);
     };
   }, [navigate]);
 
+  
+  let path = "language";
+  const waitForFlutterRoute = () => {
+    return new Promise((resolve) => {
+      const check = setInterval(() => {
+        if (typeof window.flutterRoute === "function") {
+          clearInterval(check);
+          resolve();
+        }
+      }, 100);
+    });
+  };
+  useEffect(() => {
+    if (initialized) {
+      waitForFlutterRoute().then(() => {
+        console.log("FlutterProvComponent Path: ", path);
+
+        window.flutterRoute(`/${path}`);
+        console.log(`_Route "/${path}" has been sent to Flutter app.`);
+      });
+    }
+  }, [initialized]);
+
+  useEffect(() => {
+    setFlutterStyles({
+        width: '450px',
+        height: '800px',
+        position: 'absolute',    
+        top: '45%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+    });
+}, [setFlutterStyles]);
+
   return (
     <div className="flex flex-col font-kanit w-screen h-screen">
       <div className="w-full flex flex-col justify-center">
       <Navbar />
-        <p className="text-center h-20 align-middle mt-10 text-4xl">
-          React + Flutter
-        </p>
-        <div className="flex flex-row justify-center">
-        <FlutterMainApp path={"language"} flutterCss={flutterCss}/>
-        </div>
       </div>
     </div>
   );

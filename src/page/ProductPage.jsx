@@ -4,28 +4,51 @@ import WeatherState from "../compenent/WeatherComponent";
 import Navbar from "../compenent/Navbar";
 import ProductComponent from "../compenent/ProductComponent";
 import FlutterWebAisApp from "../compenent/flutter-ui/FlutterWebAisComponent";
-// import FlutterComponent from '../compenent/flutter-ui/MainCom'
 import FlutterCoreApp from "../compenent/flutter-ui/FlutterCoreComponent";
 import FlutterMainApp from "../compenent/flutter-ui/FlutterMainComponent";
+import {useFlutterStyles} from '../context/FlutterStyleContext'
+import { useFlutter } from "../context/FlutterProvider";
 
 const ProductPage = () => {
+  const { setFlutterStyles } = useFlutterStyles();
+  const { initialized, renderFlutterApp } = useFlutter();
 
-//  useEffect(() => {
-//   if (initialized) {
+  useEffect(() => {
+    setFlutterStyles({
+        width: '450px',
+        height: '800px',
+        position: 'absolute',                                
+        top: '45%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)', 
+    });
+}, [setFlutterStyles]);
 
-//       window.flutterRoute("product"); 
-//       console.log('Flutter app is ready. Route "product" has been sent.');
-//   }
-//      },[initialized ])
-  
+let path = "catalog";
+const waitForFlutterRoute = () => {
+  return new Promise((resolve) => {
+    const check = setInterval(() => {
+      if (typeof window.flutterRoute === "function") {
+        clearInterval(check);
+        resolve();
+      }
+    }, 100);
+  });
+};
+useEffect(() => {
+  if (initialized) {
+    waitForFlutterRoute().then(() => {
+      console.log("FlutterProvComponent Path: ", path);
+
+      window.flutterRoute(`/${path}`);
+      console.log(`_Route "/${path}" has been sent to Flutter app.`);
+    });
+  }
+}, [initialized]);
   return (
     <div>
       <Navbar />
       <div className="flex flex-col justify-center items-center">
-      <FlutterMainApp path={"catalog"} flutterCss={flutterCss}/>
-      {/* <div style={{ display: "none" }}> */}
-          {/* <ProductComponent /> */}
-        {/* </div> */}
       </div>
     </div>
   );
@@ -42,3 +65,5 @@ const flutterCss = {
   overflow: 'hidden',
   position: 'relative', 
 };
+
+

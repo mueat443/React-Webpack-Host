@@ -8,51 +8,30 @@ const translations = {
 };
 
 const LanStateComponent = () => {
-  const { languageState, setLanguageState } = useContext(LanguageStateContext); // ใช้ context แทน useState
+  const { languageState, setLanguageState } = useContext(LanguageStateContext); 
 
   useEffect(() => {    
-    // const onFlutterReady = () => {
-    //   console.log('Flutter is ready');  // Debug message        
-    //   if (window.receiveStateFromFlutter) {
-    //     const initialState = window.receiveStateFromFlutter();
-    //     console.log("Updated from Flutter: ", initialState);
-    //     setLanguageState(initialState);  // อัพเดต context
-    //   } else {
-    //     console.warn("receiveStateFromFlutter is not defined.");
-    //   }
-    // };
 
     const onStateChanged = (event) => {
       try {                        
         const newState = event.detail;
         console.log('React received new state from Flutter: ', newState);
-        setLanguageState(newState);  // อัพเดต context
+        setLanguageState(newState);  
       } catch (error) {
         console.error("Error handling state change from Flutter: ", error);
       }
     };
 
-    // window.addEventListener('flutter-language-initialized', onFlutterReady);
-    window.addEventListener('state-updated', onStateChanged); // Listen for state changes
+    window.addEventListener('state-updated', onStateChanged); 
 
     return () => {
-      // window.removeEventListener('flutter-language-initialized', onFlutterReady);
       window.removeEventListener('state-updated', onStateChanged);
     };
   }, [setLanguageState]);
 
-  // useEffect(() => {  
-  //   console.log("window.sendStateToFlutter()",window.setText());    
-  //   if (window.setText) {
-  //     console.log('[React] Calling sendStateToFlutter with:', languageState);
-  //     window.setText(languageState); 
-  //   } else {
-  //     console.error('[React] sendStateToFlutter function is not defined.');
-  //   }
-  // }, []);
 
   const handleStateChange = (newState) => {
-    setLanguageState(newState); // อัพเดต context
+    setLanguageState(newState); 
     if (window.sendStateToFlutter) {
       try {
         window.sendStateToFlutter(newState);

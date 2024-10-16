@@ -1,6 +1,7 @@
 import React from "react";
 import LoginComponent from "../compenent/LoginComponent";
 import aisIcon from "../assets/ais.png";
+
 const LogInPage = () => {
   return (
     <div className="flex flex-col w-full h-screen justify-center font-kanit">

@@ -4,10 +4,10 @@ import logo from "../assets/ais.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false); // State to control menu open/close
+  const [isOpen, setIsOpen] = useState(false); 
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen); // Toggle menu state
+    setIsOpen(!isOpen); 
   };
 
   return (
@@ -15,9 +15,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center p-4">
         <img src={logo} alt="MyApp Logo" className="h-10" />
 
-        {/* Hamburger Icon (always visible) */}
         <button onClick={toggleMenu} className="text-white focus:outline-none">
-          {/* Hamburger Icon */}
           <svg
             className="w-8 h-8"
             fill="none"
@@ -35,13 +33,12 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Dropdown menu (absolute, small box from right) */}
       {isOpen && (
         <div className="absolute top-full right-0 mt-2 w-40 bg-green-500 shadow-lg z-10 rounded-md mr-10">
           <button
             onClick={() => {
               navigate("/coreLan");
-              setIsOpen(false); // Close menu after navigating
+              setIsOpen(false); 
             }}
             className="block w-full text-left text-white px-4 py-2"
           >
@@ -50,7 +47,7 @@ const Navbar = () => {
           <button
             onClick={() => {
               navigate("/product");
-              setIsOpen(false); // Close menu after navigating
+              setIsOpen(false);
             }}
             className="block w-full text-left text-white px-4 py-2"
           >
@@ -59,7 +56,7 @@ const Navbar = () => {
           <button
             onClick={() => {
               navigate("/profile");
-              setIsOpen(false); // Close menu after navigating
+              setIsOpen(false);
             }}
             className="block w-full text-left text-white px-4 py-2"
           >
@@ -68,20 +65,11 @@ const Navbar = () => {
           <button
             onClick={() => {
               navigate("/language");
-              setIsOpen(false); // Close menu after navigating
+              setIsOpen(false); 
             }}
             className="block w-full text-left text-white px-4 py-2"
           >
             Language
-          </button>
-          <button
-            onClick={() => {
-              navigate("/provider");
-              setIsOpen(false); // Close menu after navigating
-            }}
-            className="block w-full text-left text-white px-4 py-2"
-          >
-            Provider
           </button>
         </div>
       )}

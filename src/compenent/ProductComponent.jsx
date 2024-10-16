@@ -11,12 +11,8 @@ const ProductComponent = () => {
     if (savedCart) {
       setCart(JSON.parse(savedCart));
     }
-
-    const onFlutterReady = (event) => {
-      console.log("asdasdasdasdasdasdasdasdasdasdas::::::::::::::",event.detail.getStateAsString());
-      
+    const onFlutterReady = (event) => {      
       const data = JSON.parse(event.detail.getStateAsString());
-      // console.log("asdasdasdasdasdasdasdasdasdasdas",data);
       setCart(data.cart);
     };
 

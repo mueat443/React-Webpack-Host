@@ -2,56 +2,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { LanguageStateContext } from "../context/LanguageStateContext";
 import Navbar from "./Navbar";
 import reactIcon from "../assets/react.svg";
+import { useSocketContext } from "../context/SocketContext";
+
 const ConnectSocketComponent = () => {
   const { languageState, setLanguageState } = useContext(LanguageStateContext);
-  const [protocolVersion, setProtocolVersion] = useState("");
+  const { protocolVersion, flutterState } = useSocketContext(); 
   const [text, setText] = useState("");
-  const [flutterState, setFlutterState] = useState(null);
 
   const handleInputChange = (event) => {
     setText(event.target.value);
   };
-
-  useEffect(() => {
-    const onFlutterReady = (event) => {
-      const exportedState = event.detail;
-      // exportedState.setScreen("counter");
-      exportedState.conectSocket();
-      setFlutterState(exportedState);
-
-    };
-    window.addEventListener("flutter-socket", onFlutterReady);
-
-    return () => {
-      window.removeEventListener("flutter-socket", onFlutterReady);
-    };
-  }, []);
-
-
-  useEffect(() => {
-    let parsedData;
-    let parsedEvent;
-    window.notifyStateChangeSocket = (state) => {
-      try {
-        parsedData = JSON.parse(state);
-        if (parsedData.event) {
-          try {
-            parsedEvent = JSON.parse(parsedData.event);
-            console.log("Parsed event:", parsedEvent);
-            setProtocolVersion(parsedEvent);
-          } catch (error) {
-            console.error("Failed to parse event JSON:", error);
-          }
-        }
-      } catch (error) {
-        console.error("Failed to parse JSON:", error);
-      }
-    };
-    return () => {
-      window.notifyStateChangeSocket = null;
-    };
-  }, [flutterState]);
-  
 
   return (
     <div className="flex flex-col w-full h-screen bg-gray-100 font-kanit">

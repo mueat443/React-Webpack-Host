@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const LoginComponent = () => {
   const { userName, setUserName, password, setPassword } =
     useContext(LoginStateContext);
-    const navigate = useNavigate(); // ใช้สำหรับทำ routing
+    const navigate = useNavigate(); 
 
   const listUser = [
     {

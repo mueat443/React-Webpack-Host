@@ -1,18 +1,23 @@
-import React from "react";
+import React, {useEffect } from "react";
 import ConnectSocketComponent from "../compenent/ConnectSocketComponent";
 import FlutterCoreApp from "../compenent/flutter-ui/FlutterCoreComponent";
 import { LanguageStateProvider } from "../context/LanguageStateContext";
 import Navbar from "../compenent/Navbar";
 import FlutterMainApp from "../compenent/flutter-ui/FlutterMainComponent";
+import {useFlutterStyles} from '../context/FlutterStyleContext'
 
 const ConnectSocketPage = () => {
-  const shouldShowFlutterApp = false;
+  const { setFlutterStyles } = useFlutterStyles();
+
+  useEffect(() => {
+    setFlutterStyles({
+      display: "none"
+    });
+}, [setFlutterStyles]);
+                   
   return (
     <div>
       <Navbar />
-      <div style={{ display: shouldShowFlutterApp ? "block" : "none" }}>
-        <FlutterMainApp path={"socket"} flutterCss={flutterCss}/>
-      </div>
       <ConnectSocketComponent />
     </div>
   );
