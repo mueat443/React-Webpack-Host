@@ -14,6 +14,8 @@ import { ProductStateProvider } from "./context/ProductStateContext";
 import { FlutterProvider } from './context/FlutterProvider'
 import {FlutterStylesProvider} from './context/FlutterStyleContext'
 import {SocketProvider} from './context/SocketContext'
+import TestProvider from "./page/TestProvider";
+import TestProvider1 from "./page/TestProvider-1";
 
 const theme = createTheme({
   palette: {
@@ -41,6 +43,8 @@ const App = () => {
                   <Route path="/coreLan" element={<ConnectSocketPage />} />
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/product" element={<ProductPage />} />
+                  <Route path="/prov" element={<TestProvider />} />
+                  <Route path="/prov1" element={<TestProvider1 />} />
                 </Routes>
               </Router>
             </ProductStateProvider>

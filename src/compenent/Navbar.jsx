@@ -71,6 +71,24 @@ const Navbar = () => {
           >
             Language
           </button>
+          <button
+            onClick={() => {
+              navigate("/prov");
+              setIsOpen(false); 
+            }}
+            className="block w-full text-left text-white px-4 py-2"
+          >
+            Prov
+          </button>
+          <button
+            onClick={() => {
+              navigate("/prov1");
+              setIsOpen(false); 
+            }}
+            className="block w-full text-left text-white px-4 py-2"
+          >
+            Prov1
+          </button>
         </div>
       )}
     </nav>
