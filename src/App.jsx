@@ -11,10 +11,7 @@ import ProfilePage from "./page/ProfilePage";
 import ProductPage from "./page/ProductPage";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ProductStateProvider } from "./context/ProductStateContext";
-import SynconyzePage from "./page/SynconyzePage"; // นำเข้าหน้า Synconyze ที่เราจะสร้าง
-import ProfileWithRedirect from "./page/SynconyzePage"; // นำเข้าหน้า Synconyze ที่เราจะสร้าง
 import { FlutterProvider } from './context/FlutterProvider'
-// import AdjustFlutterContainer from "./page/ProviderPage"; // นำเข้าหน้า Synconyze ที่เราจะสร้าง
 import {FlutterStylesProvider} from './context/FlutterStyleContext'
 import {SocketProvider} from './context/SocketContext'
 
@@ -44,7 +41,6 @@ const App = () => {
                   <Route path="/coreLan" element={<ConnectSocketPage />} />
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/product" element={<ProductPage />} />
-                  <Route path="/synconyze" element={<SynconyzePage />} />
                 </Routes>
               </Router>
             </ProductStateProvider>

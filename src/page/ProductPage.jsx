@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import FlutterWeatherApp from "../compenent/flutter-ui/FlutterWeatherComponent";
-import WeatherState from "../compenent/WeatherComponent";
 import Navbar from "../compenent/Navbar";
-import ProductComponent from "../compenent/ProductComponent";
-import FlutterWebAisApp from "../compenent/flutter-ui/FlutterWebAisComponent";
-import FlutterCoreApp from "../compenent/flutter-ui/FlutterCoreComponent";
-import FlutterMainApp from "../compenent/flutter-ui/FlutterMainComponent";
 import {useFlutterStyles} from '../context/FlutterStyleContext'
 import { useFlutter } from "../context/FlutterProvider";
 

@@ -1,14 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
-import ReactDOM from "react-dom";
-import FlutterMainApp from "../compenent/flutter-ui/FlutterMainComponent";
-import FlutterManageProviderComponent from "../compenent/poc/FlutterManageProviderComponent";
-import CoreWithLanPage from "./ConnectSocketPage";
 import "../index.scss";
-import { LanguageStateContext } from "../context/LanguageStateContext";
 import { useNavigate } from "react-router-dom";
-import FlutterFix from "../compenent/poc/Flutter-provider-fix";
-import LanStateComponent from "../compenent/LanguageComponent"
-import FlutterWebAisApp from "../compenent/flutter-ui/FlutterWebAisComponent"
 import Navbar from "../compenent/Navbar";
 import { useFlutter } from "../context/FlutterProvider";
 import {useFlutterStyles} from '../context/FlutterStyleContext'
