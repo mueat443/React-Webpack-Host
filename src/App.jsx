@@ -16,7 +16,10 @@ import {FlutterStylesProvider} from './context/FlutterStyleContext'
 import {SocketProvider} from './context/SocketContext'
 import TestProvider from "./page/TestProvider";
 import TestProvider1 from "./page/TestProvider-1";
-
+import {
+  Provider,
+  KeepAlive,
+} from 'react-keep-alive';
 const theme = createTheme({
   palette: {
     primary: {
@@ -36,6 +39,7 @@ const App = () => {
         <LoginStateProvider>
           <LanguageStateProvider>
             <ProductStateProvider>
+              <Provider>
               <Router>
                 <Routes>
                   <Route path="/" element={<LogInPage />} />
@@ -47,6 +51,7 @@ const App = () => {
                   <Route path="/prov1" element={<TestProvider1 />} />
                 </Routes>
               </Router>
+              </Provider>
             </ProductStateProvider>
           </LanguageStateProvider>
         </LoginStateProvider>
