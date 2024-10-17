@@ -31,7 +31,7 @@ export const ProductStateProvider = ({ children }) => {
     };
 
     return () => {
-      window.notifyStateChangeShop = null; // ลบ notifyStateChangeShop เมื่อ unmount
+      window.notifyStateChangeShop = null; 
     };
   }, []);
 

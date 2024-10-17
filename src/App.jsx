@@ -17,9 +17,10 @@ import ProductPage from "./page/ProductPage";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ProductStateProvider } from "./context/ProductStateContext";
 import { FlutterProvider } from "./context/FlutterProvider";
-import { FlutterStylesProvider } from "./context/FlutterStyleContext";
 import { SocketProvider } from "./context/SocketContext";
 import { Provider, KeepAlive } from "react-keep-alive";
+import BlocMultiPage from "./page/BlocMultiPage";
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -31,7 +32,6 @@ const theme = createTheme({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <FlutterStylesProvider>
         <FlutterProvider>
           <SocketProvider>
             <LoginStateProvider>
@@ -51,6 +51,7 @@ const App = () => {
                         />
                         <Route path="/profile" element={<ProfilePage />} />
                         <Route path="/product" element={<ProductPage />} />
+                        <Route path="/bloc-multi" element={<BlocMultiPage />} />
                       </Routes>
                     </Router>
                   </Provider>
@@ -59,7 +60,6 @@ const App = () => {
             </LoginStateProvider>
           </SocketProvider>
         </FlutterProvider>
-      </FlutterStylesProvider>
     </ThemeProvider>
   );
 };

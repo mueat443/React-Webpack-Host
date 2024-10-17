@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { ProductStateContext, useProductStateContext } from "../context/ProductStateContext";
 
-const WeatherState = () => {
+const ProfileComponent = () => {
   const { cart } = useProductStateContext(); 
   const { languageState } = useContext(LanguageStateContext);
   const { userName } = useContext(LoginStateContext);
@@ -28,7 +28,7 @@ const WeatherState = () => {
   );
 };
 
-export default WeatherState;
+export default ProfileComponent;
 
 function languageConvert(languageKey) {
   if (languageKey === "th") {

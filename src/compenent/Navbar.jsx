@@ -73,21 +73,12 @@ const Navbar = () => {
           </button>
           <button
             onClick={() => {
-              navigate("/prov");
+              navigate("/bloc-multi");
               setIsOpen(false); 
             }}
             className="block w-full text-left text-white px-4 py-2"
           >
-            Prov
-          </button>
-          <button
-            onClick={() => {
-              navigate("/prov1");
-              setIsOpen(false); 
-            }}
-            className="block w-full text-left text-white px-4 py-2"
-          >
-            Prov1
+            Bloc
           </button>
         </div>
       )}
