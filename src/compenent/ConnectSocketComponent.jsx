@@ -18,7 +18,7 @@ const ConnectSocketComponent = () => {
       <div className="flex justify-center items-center w-full h-full px-4">
         <div className="flex flex-col items-center w-5/12">
           <p className="text-center text-4xl mt-11">
-            Connect Socket in Flutter
+            {languageState === 'th'? "เชื่อมต่อ" : "Connect" } Socket in Flutter
             <span className="inline-flex items-center cursor-pointer">
               <img
                 src={reactIcon}

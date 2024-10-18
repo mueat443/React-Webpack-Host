@@ -19,6 +19,13 @@
     window.notifyStateChangeSocket = function(state) {
     console.log('Received state:', state);
   };
+   window.notifyStateChangeTimer = (str) => {
+      console.log(str);      
+    }
+  window.handleNavigationFromOtherPage = () => {
+  console.log("Navigated from another page");
+  // ที่นี่คุณสามารถทำอะไรก็ได้ที่ต้องการเมื่อมีการนำทางจากหน้าอื่น
+};
   </script>
   
   <!-- <script src="http://localhost:8080/flutter.js" defer></script> -->

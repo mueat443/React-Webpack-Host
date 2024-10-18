@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/ais.png";
+import { goToPage } from "../utils/FlutterRoute"; 
+import { useNavigation } from "../context/NavigationProvider ";
+
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false); 
-
+  const { isNavigatedFromOtherPage, setIsNavigatedFromOtherPage, previousPages, setPreviousPages } =
+  useNavigation();
   const toggleMenu = () => {
     setIsOpen(!isOpen); 
   };
@@ -73,7 +77,7 @@ const Navbar = () => {
           </button>
           <button
             onClick={() => {
-              navigate("/bloc-multi");
+              goToPage("/bloc-multi",setPreviousPages,navigate);
               setIsOpen(false); 
             }}
             className="block w-full text-left text-white px-4 py-2"

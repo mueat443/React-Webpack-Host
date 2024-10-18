@@ -20,6 +20,10 @@ import { FlutterProvider } from "./context/FlutterProvider";
 import { SocketProvider } from "./context/SocketContext";
 import { Provider, KeepAlive } from "react-keep-alive";
 import BlocMultiPage from "./page/BlocMultiPage";
+import BlocMultiPage2 from "./page/BlocMultiPage2";
+import BlocMultiPage3 from "./page/BlocMultiPage3";
+import { NavigationProvider } from "./context/NavigationProvider ";
+
 
 const theme = createTheme({
   palette: {
@@ -38,6 +42,8 @@ const App = () => {
               <LanguageStateProvider>
                 <ProductStateProvider>
                   <Provider>
+                  <NavigationProvider>
+
                     <Router>
                       <Routes>
                         <Route path="/" element={<LogInPage />} />
@@ -52,8 +58,12 @@ const App = () => {
                         <Route path="/profile" element={<ProfilePage />} />
                         <Route path="/product" element={<ProductPage />} />
                         <Route path="/bloc-multi" element={<BlocMultiPage />} />
+                        <Route path="/bloc-multi2" element={<BlocMultiPage2 />} />
+                        <Route path="/bloc-multi3" element={<BlocMultiPage3 />} />
                       </Routes>
                     </Router>
+                    </NavigationProvider>
+
                   </Provider>
                 </ProductStateProvider>
               </LanguageStateProvider>

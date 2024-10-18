@@ -6,25 +6,22 @@ import { useNavigate } from "react-router-dom";
 import { useFlutter } from "../context/FlutterProvider";
 import { Outlet } from "react-router-dom";
 import { KeepAlive } from "react-keep-alive";
+import BlocMultiComponent from "../compenent/BlocMultiComponent";
 import {
   sendRouteToFlutter,
   sendflutterTimerJourneyRoute,
   sendflutterTimerJourneyRouteBack,
 } from "../utils/FlutterRoute";
-import BlocMultiComponent from "../compenent/BlocMultiComponent";
 import { useNavigation } from "../context/NavigationProvider ";
-import ForwardIcon from "../assets/forwardIcon.png";
+import BackIcon from "../assets/backIcon.png";
 import { goToPage, handleBack } from "../utils/FlutterRoute";
 
-
-
-const BlocMultiPage = () => {
+const BlocMultiPage3 = () => {
   const { initialized, containerRef } = useFlutter();
   const { isNavigatedFromOtherPage, setIsNavigatedFromOtherPage, previousPages, setPreviousPages } =
-    useNavigation();
+  useNavigation();
 
   const navigate = useNavigate();
-
   useEffect(() => {
     window.navigateToPage = (path) => {
       goToPage(path,setPreviousPages,navigate);
@@ -34,36 +31,34 @@ const BlocMultiPage = () => {
     };
   }, [navigate]);
 
-  useEffect(() => {
-    if (!isNavigatedFromOtherPage) {
-      sendRouteToFlutter("timer", initialized);
-    }
-  }, [initialized, isNavigatedFromOtherPage]);
+  useEffect(() => {                                             
+    setIsNavigatedFromOtherPage(true);
+  }, []);
 
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col justify-end items-end">
+      <div className="flex flex-col justify-center items-center">
         <KeepAlive name="flutter-container">
           <FlutterContainer containerRef={containerRef} />
         </KeepAlive>
         <Outlet />
-      </div>
-      <div className="w-full flex flex-row justify-end items-center pl-16 pr-16 mt-10">
-        <button
-          onClick={() => {
-            // navigate("/bloc-multi2");
-            goToPage("/bloc-multi2",setPreviousPages,navigate);
-            sendflutterTimerJourneyRoute("page2", initialized);
-          }}
-        >
-          <img src={ForwardIcon} alt="ForwardIcon" className="h-10" />
-        </button>{" "}
+        <div className="w-full flex flex-row justify-start items-center pl-16 pr-16 mt-10">
+          <button
+            onClick={() => {
+              handleBack(previousPages,setPreviousPages,navigate);
+              sendflutterTimerJourneyRouteBack(initialized);
+            }}
+          >
+            <img src={BackIcon} alt="BackIcon" className="h-10" />
+          </button>{" "}
+        </div>
       </div>
     </div>
   );
 };
-export default BlocMultiPage;
+
+export default BlocMultiPage3;
 
 {
   /* <BlocMultiComponent event={"flutter-timer"} duration={firstDuration}/>

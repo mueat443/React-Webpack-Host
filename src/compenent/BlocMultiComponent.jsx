@@ -3,9 +3,8 @@ import PlayIcon from "../assets/play-button.svg";
 import PauseIcon from "../assets/pause-button.svg";
 import RefreshIcon from "../assets/refresh-button.svg";
 
-const BlocMultiComponent = ({event}) => {
+const BlocMultiComponent = ({event,duration}) => {
   const [flutterState, setFlutterState] = useState(null);
-  const [duration, setDuration] = useState(60);
   const [isPlaying, setIsPlaying] = useState(true); 
   const [hasStarted, setHasStarted] = useState(false);
 
@@ -35,23 +34,7 @@ const BlocMultiComponent = ({event}) => {
     };
   }, []);
 
-  useEffect(() => {
-    window.notifyStateChangeTimer = (state) => {
-      try {
-        const parsedData = JSON.parse(state);
-        const parsedDuration = parsedData.duration;
-        const parsedEvent = parsedData.event; // แยก event ออกมา
-        console.log("Event:", event, "Parsed Data:", parsedData);
-        setDuration(parsedDuration);
-      } catch (error) {
-        console.error("Failed to parse JSON:", error);
-      }
-    };
 
-    return () => {
-      window.notifyStateChangeShop = null;
-    };
-  }, []);
 
   return (
     <div className="flex mt-10 font-kanit text-3xl w-full items-center justify-center">
@@ -65,6 +48,8 @@ const BlocMultiComponent = ({event}) => {
       )}
 
       {hasStarted && (
+        <div className=" flex flex-col justify-center items-center">
+            <p className="mb-5">{event === "flutter-timer"? "Bloc Page 1 , 3" : "Bloc Page 2"}</p>
         <div className="flex flex-row">
           <img
             src={isPlaying ? PauseIcon : PlayIcon}
@@ -86,8 +71,10 @@ const BlocMultiComponent = ({event}) => {
             }}
           />
         </div>
+        </div>
       )}
     </div>
+    
   );
 };
 
