@@ -43,6 +43,7 @@ const BlocMultiPage = () => {
   return (
     <div>
       <Navbar />
+      <p className="text-center"> React Page1</p>
       <div className="flex flex-col justify-end items-end">
         <KeepAlive name="flutter-container">
           <FlutterContainer containerRef={containerRef} />

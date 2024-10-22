@@ -23,6 +23,7 @@ import BlocMultiPage from "./page/BlocMultiPage";
 import BlocMultiPage2 from "./page/BlocMultiPage2";
 import BlocMultiPage3 from "./page/BlocMultiPage3";
 import { NavigationProvider } from "./context/NavigationProvider ";
+import { WeatherStateProvider } from "./context/WeatherStateContext";
 
 
 const theme = createTheme({
@@ -41,6 +42,7 @@ const App = () => {
             <LoginStateProvider>
               <LanguageStateProvider>
                 <ProductStateProvider>
+                  <WeatherStateProvider>
                   <Provider>
                   <NavigationProvider>
 
@@ -65,6 +67,7 @@ const App = () => {
                     </NavigationProvider>
 
                   </Provider>
+                  </WeatherStateProvider>
                 </ProductStateProvider>
               </LanguageStateProvider>
             </LoginStateProvider>

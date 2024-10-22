@@ -12,7 +12,7 @@ const ProfilePage = () => {
   const { initialized, containerRef } = useFlutter();
 
   useEffect(() => {
-    sendRouteToFlutter("catalog", initialized);
+    sendRouteToFlutter("weather", initialized);
   }, [initialized]);
 
   return (
