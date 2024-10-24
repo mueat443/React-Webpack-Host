@@ -9,7 +9,6 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     const onFlutterReady = (event) => {
       const exportedState = event.detail;
-      exportedState.conectSocket();
       setFlutterState(exportedState);
     };
     window.addEventListener("flutter-socket", onFlutterReady);

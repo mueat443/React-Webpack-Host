@@ -22,25 +22,12 @@ export const WeatherStateProvider = ({ children }) => {
   useEffect(() => {
     if (country) {
       flutterState.fetchWeather(country);
-      var a = flutterState.getStateJson();
-      console.log("use flutterState",a.toString());
-    }else{
-      if(flutterState){
-        var a = flutterState.getStateJson();
-        console.log("use flutterState",a.toString());
-      }
-    }
+    }   
   }, [country]);
 
-  useEffect(() => {
-    // var a = flutterState.getStateJson();
-    if(flutterState){
-    var a = flutterState.getStateJson();
-    console.log("use flutterState",a.toString());}
-  }, [flutterState]);
 
   return (
-    <WeatherStateContext.Provider value={{ flutterState, setCountry }}>
+    <WeatherStateContext.Provider value={{ flutterState, setCountry,country }}>
       {children}
     </WeatherStateContext.Provider>
   );

@@ -181,11 +181,11 @@ const FlutterContext = createContext();
 
 export const FlutterProvider = ({ children, src = 'http://localhost:8089/flutter.js' }) => {
   const flutterInstance = useRef(null);
-  const containerRef = useRef(document.createElement('div')); // สร้าง div สำหรับ Flutter
+  const containerRef = useRef(document.createElement('div')); 
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    // Append the container to the body only once
+
     if (!document.body.contains(containerRef.current)) {
       document.body.appendChild(containerRef.current);
     }
@@ -207,7 +207,6 @@ export const FlutterProvider = ({ children, src = 'http://localhost:8089/flutter
           if (window._flutter) {
             const assetBase = src.replace('flutter.js', '');
             const entrypointUrl = `${assetBase}main.dart.js`;
-
             window._flutter.loader.loadEntrypoint({
               entrypointUrl,
               assetBase,
@@ -231,7 +230,6 @@ export const FlutterProvider = ({ children, src = 'http://localhost:8089/flutter
     initializeFlutter();
 
     return () => {
-      // Clean up if necessary
     };
   }, [src]);
 
@@ -242,6 +240,5 @@ export const FlutterProvider = ({ children, src = 'http://localhost:8089/flutter
   );
 };
 
-// Hook สำหรับเข้าถึง Flutter context
 export const useFlutter = () => useContext(FlutterContext);
 

@@ -1,8 +1,6 @@
 import React, { useEffect,useState } from 'react';
 
-
-
-const FlutterMainApp = ({path,flutterCss}) => {
+const FlutterMainAppFlutterMainApp = ({path,flutterCss}) => {
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {

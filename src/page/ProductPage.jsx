@@ -14,6 +14,13 @@ const ProductPage = () => {
     sendRouteToFlutter("catalog", initialized);
   }, [initialized]);
 
+  useEffect(() => {    
+    if (containerRef.current) {
+      containerRef.current.style.width = '450px';
+      containerRef.current.style.height = '800px';
+    }
+  }, [containerRef]);
+
   return (
     <div>
       <Navbar />

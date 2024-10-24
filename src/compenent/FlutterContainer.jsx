@@ -1,11 +1,10 @@
-import React from 'react';
-
-const FlutterContainer = ({ containerRef }) => {
+import React ,{useEffect}from 'react';
+const FlutterContainer = ({ containerRef,adjustStyle }) => {  
   return (
     <div
       id="flutter-main-container"
       ref={containerRef}
-      style={{
+      style={adjustStyle ? adjustStyle :{
         display: "block",
         border: '1px solid #eee',
         borderRadius: '5px',

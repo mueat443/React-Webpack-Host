@@ -25,11 +25,10 @@ import BlocMultiPage3 from "./page/BlocMultiPage3";
 import { NavigationProvider } from "./context/NavigationProvider ";
 import { WeatherStateProvider } from "./context/WeatherStateContext";
 
-
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#b8f416", // สีหลัก (Primary Color)
+      main: "#b8f416", 
     },
   },
 });
@@ -37,42 +36,35 @@ const theme = createTheme({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-        <FlutterProvider>
-          <SocketProvider>
-            <LoginStateProvider>
-              <LanguageStateProvider>
-                <ProductStateProvider>
-                  <WeatherStateProvider>
+      <FlutterProvider>
+        <SocketProvider>
+          <LoginStateProvider>
+            <LanguageStateProvider>
+              <ProductStateProvider>
+                <WeatherStateProvider>
                   <Provider>
-                  <NavigationProvider>
-
-                    <Router>
-                      <Routes>
-                        <Route path="/" element={<LogInPage />} />
-                        <Route
-                          path="/language"
-                          element={<FlutterWithReactPage />}
-                        />
-                        <Route
-                          path="/coreLan"
-                          element={<ConnectSocketPage />}
-                        />
-                        <Route path="/profile" element={<ProfilePage />} />
-                        <Route path="/product" element={<ProductPage />} />
-                        <Route path="/bloc-multi" element={<BlocMultiPage />} />
-                        <Route path="/bloc-multi2" element={<BlocMultiPage2 />} />
-                        <Route path="/bloc-multi3" element={<BlocMultiPage3 />} />
-                      </Routes>
-                    </Router>
+                    <NavigationProvider>
+                      <Router>
+                        <Routes>
+                          <Route path="/" element={<LogInPage />} />
+                          <Route path="/language" element={<FlutterWithReactPage />} />
+                          <Route path="/coreLan" element={<ConnectSocketPage />} />
+                          <Route path="/profile" element={<ProfilePage />} />
+                          <Route path="/product" element={<ProductPage />} />
+                          <Route path="/bloc-multi" element={<BlocMultiPage />}/>
+                          <Route path="/bloc-multi2" element={<BlocMultiPage2 />} />
+                          <Route path="/bloc-multi3" element={<BlocMultiPage3 />}/>
+                          <Route path="*" element={<LogInPage />} />
+                        </Routes>
+                      </Router>
                     </NavigationProvider>
-
                   </Provider>
-                  </WeatherStateProvider>
-                </ProductStateProvider>
-              </LanguageStateProvider>
-            </LoginStateProvider>
-          </SocketProvider>
-        </FlutterProvider>
+                </WeatherStateProvider>
+              </ProductStateProvider>
+            </LanguageStateProvider>
+          </LoginStateProvider>
+        </SocketProvider>
+      </FlutterProvider>
     </ThemeProvider>
   );
 };

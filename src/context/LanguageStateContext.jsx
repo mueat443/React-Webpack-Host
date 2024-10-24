@@ -72,12 +72,10 @@ export const LanguageStateProvider = ({ children }) => {
     const onFlutterReady = () => {
       if (window.receiveStateFromFlutter) {
         const initialState = window.receiveStateFromFlutter();
-
         if (initialState) {
           setLanguageState(initialState);
         }
       }
-
       if (window.sendStateToFlutter) {
         window.sendStateToFlutter(languageState);
       } else {

@@ -23,6 +23,13 @@ const FlutterWithReactPage = () => {
     sendRouteToFlutter("language", initialized);
   }, [initialized]);
 
+  useEffect(() => {    
+    if (containerRef.current) {
+      containerRef.current.style.width = '450px';
+      containerRef.current.style.height = '800px';
+    }
+  }, [containerRef]);
+  
   return (
     <div className="flex flex-col font-kanit w-screen h-screen">
       <div className="w-full flex flex-col justify-center">
