@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../compenent/Navbar";
-import FlutterContainer from "../compenent/FlutterContainer";
+import FlutterContainer from "../compenent/ui/FlutterContainer";
 
 import { useNavigate } from "react-router-dom";
 import { useFlutter } from "../context/FlutterProvider";
 import { Outlet } from "react-router-dom";
 import { KeepAlive } from "react-keep-alive";
-import BlocMultiComponent from "../compenent/BlocMultiComponent";
 import {
   sendRouteToFlutter,
   sendflutterTimerJourneyRoute,
   sendflutterTimerJourneyRouteBack,
 } from "../utils/FlutterRoute";
-import { useNavigation } from "../context/NavigationProvider ";
+import { useNavigation } from "../context/route/NavigationProvider ";
 import BackIcon from "../assets/backIcon.png";
 import ForwardIcon from "../assets/forwardIcon.png";
 import { goToPage, handleBack } from "../utils/FlutterRoute";
@@ -35,6 +34,7 @@ const BlocMultiPage2 = () => {
   useEffect(() => {                                             
     setIsNavigatedFromOtherPage(true);
   }, []);
+  
   useEffect(() => {    
     if (containerRef.current) {
       containerRef.current.style.width = '450px';
@@ -75,10 +75,6 @@ const BlocMultiPage2 = () => {
 
 export default BlocMultiPage2;
 
-{
-  /* <BlocMultiComponent event={"flutter-timer"} duration={firstDuration}/>
-      <BlocMultiComponent event={"flutter-timer2"} duration={secondDuration}/> */
-}
 
 // const [firstDuration, setFirstDuration] = useState(60);
 // const [secondDuration, setSecondDuration] = useState(60);

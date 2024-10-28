@@ -1,4 +1,6 @@
 import React, { createContext, useState, useEffect,useContext } from 'react';
+import {setupNotifyStateChangeShop} from "../interop"
+import {initializeFlutterListener} from "../utils/Event"
 
 export const ProductStateContext = createContext();
 
@@ -6,33 +8,15 @@ export const ProductStateProvider = ({ children }) => {
   const [cart, setCart] = useState(0);
   const [flutterState, setFlutterState] = useState(null);
 
-  useEffect(() => {
-    const onFlutterReady = (event) => {
-      const exportedState = event.detail;
-      setFlutterState(exportedState);
-    };
-    window.addEventListener("flutter-shopping", onFlutterReady);
 
-    return () => {
-      window.removeEventListener("flutter-shopping", onFlutterReady);
-    };
+  useEffect(() => {
+    const cleanupFlutterListener = initializeFlutterListener("flutter-shopping",setFlutterState);
+    return cleanupFlutterListener; 
   }, []);
 
   useEffect(() => {
-    window.notifyStateChangeShop = (state) => {
-      try {
-        const parsedData = JSON.parse(state);
-        const cartLength = parsedData.cart.items.length;
-        console.log("parsedData:", cartLength);
-        setCart(cartLength);
-      } catch (error) {
-        console.error("Failed to parse JSON:", error);
-      }
-    };
-
-    return () => {
-      window.notifyStateChangeShop = null; 
-    };
+    const cleanupFlutterNotifier = setupNotifyStateChangeShop(setCart);
+    return cleanupFlutterNotifier;  
   }, []);
 
   return (

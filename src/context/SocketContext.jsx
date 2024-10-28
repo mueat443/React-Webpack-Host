@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import {setupNotifyStateChangeSocket} from "../interop"
+import {initializeFlutterListener} from "../utils/Event"
 
 const SocketContext = createContext();
 
@@ -7,38 +9,13 @@ export const SocketProvider = ({ children }) => {
   const [flutterState, setFlutterState] = useState(null);
 
   useEffect(() => {
-    const onFlutterReady = (event) => {
-      const exportedState = event.detail;
-      setFlutterState(exportedState);
-    };
-    window.addEventListener("flutter-socket", onFlutterReady);
-
-    return () => {
-      window.removeEventListener("flutter-socket", onFlutterReady);
-    };
+    const cleanupFlutterListener = initializeFlutterListener("flutter-socket",setFlutterState);
+    return cleanupFlutterListener; 
   }, []);
 
   useEffect(() => {
-    let parsedData;
-    window.notifyStateChangeSocket = (state) => {
-      try {
-        parsedData = JSON.parse(state);
-        if (parsedData.event) {
-          try {
-            const parsedEvent = JSON.parse(parsedData.event);
-            console.log("Parsed event:", parsedEvent);
-            setProtocolVersion(parsedEvent);
-          } catch (error) {
-            console.error("Failed to parse event JSON:", error);
-          }
-        }
-      } catch (error) {
-        console.error("Failed to parse JSON:", error);
-      }
-    };
-    return () => {
-      window.notifyStateChangeSocket = null;
-    };
+    const cleanupNotifyStateChangeSocket = setupNotifyStateChangeSocket(setProtocolVersion);
+    return cleanupNotifyStateChangeSocket;  
   }, [flutterState]);
 
   return (
@@ -48,7 +25,6 @@ export const SocketProvider = ({ children }) => {
   );
 };
 
-// Custom hook for using the SocketContext
 export const useSocketContext = () => {
   return useContext(SocketContext);
 };

@@ -6,10 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useFlutter } from "../context/FlutterProvider";
 import { Outlet } from "react-router-dom";
 import { KeepAlive } from "react-keep-alive";
-import BlocMultiComponent from "../compenent/BlocMultiComponent";
 import {
-  sendRouteToFlutter,
-  sendflutterTimerJourneyRoute,
   sendflutterTimerJourneyRouteBack,
 } from "../utils/FlutterRoute";
 import { useNavigation } from "../context/NavigationProvider ";
@@ -66,33 +63,3 @@ const BlocMultiPage3 = () => {
 
 export default BlocMultiPage3;
 
-{
-  /* <BlocMultiComponent event={"flutter-timer"} duration={firstDuration}/>
-      <BlocMultiComponent event={"flutter-timer2"} duration={secondDuration}/> */
-}
-
-// const [firstDuration, setFirstDuration] = useState(60);
-// const [secondDuration, setSecondDuration] = useState(60);
-
-// useEffect(() => {
-//   window.notifyStateChangeTimer = (state) => {
-//     try {
-//       const parsedData = JSON.parse(state);
-//       console.log("parsedData",parsedData);
-
-//       const parsedDuration = parsedData.duration;
-//       const parsedbroadcastName = parsedData.broadcastName;
-//       if (parsedbroadcastName === "flutter-timer") {
-//           setFirstDuration(parsedDuration)
-//       } else if (parsedbroadcastName === "flutter-timer2") {
-//           setSecondDuration(parsedDuration)
-//       }
-//     } catch (error) {
-//       console.error("Failed to parse JSON:", error);
-//     }
-//   };
-
-//   return () => {
-//     window.notifyStateChangeShop = null;
-//   };
-// }, []);

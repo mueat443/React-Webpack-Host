@@ -1,5 +1,35 @@
 import React from "react";
 
+export const RouteDTO = {
+  catalog: "catalog",
+  cart: "cart",
+  socket: "socket",
+  weather: "weather",
+  language: "language",
+  timer: "timer",
+  page2: "page2",
+  page3: "page3",
+}
+
+export function setupNavigateToPage(setPreviousPages,navigate) {
+  window.navigateToPage = (path) => {
+    goToPage(path,setPreviousPages,navigate);
+  };
+  return () => {
+    delete window.setupnavigateToPage;
+  };
+}
+export function setupNavigateBack(previousPages,setPreviousPages,navigate) {
+  window.navigateBack = () => {
+    handleBack(previousPages,setPreviousPages,navigate);
+  };
+  return () => {
+    delete window.navigateBack;
+  };
+}
+
+
+
 
 export const goToPage = (path, setPreviousPages, navigate) => {
   setPreviousPages((prev) => [...prev, path]);

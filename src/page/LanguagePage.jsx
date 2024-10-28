@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useFlutter } from "../context/FlutterProvider";
 import { Outlet } from "react-router-dom";
 import { KeepAlive } from "react-keep-alive";
-import { sendRouteToFlutter } from "../utils/FlutterRoute";
+import { sendRouteToFlutter,RouteDTO } from "../utils/FlutterRoute";
 
 const FlutterWithReactPage = () => {
   const { initialized,containerRef  } = useFlutter();
@@ -20,7 +20,7 @@ const FlutterWithReactPage = () => {
   }, [navigate]);
 
   useEffect(() => {
-    sendRouteToFlutter("language", initialized);
+    sendRouteToFlutter(RouteDTO.language, initialized);
   }, [initialized]);
 
   useEffect(() => {    

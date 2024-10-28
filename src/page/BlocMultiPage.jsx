@@ -9,34 +9,33 @@ import { KeepAlive } from "react-keep-alive";
 import {
   sendRouteToFlutter,
   sendflutterTimerJourneyRoute,
-  sendflutterTimerJourneyRouteBack,
+  RouteDTO
 } from "../utils/FlutterRoute";
-import BlocMultiComponent from "../compenent/BlocMultiComponent";
 import { useNavigation } from "../context/NavigationProvider ";
 import ForwardIcon from "../assets/forwardIcon.png";
-import { goToPage, handleBack } from "../utils/FlutterRoute";
+import { goToPage, handleBack,setupNavigateToPage,setupNavigateBack } from "../utils/FlutterRoute";
 
 
 
 const BlocMultiPage = () => {
   const { initialized, containerRef } = useFlutter();
-  const { isNavigatedFromOtherPage, setIsNavigatedFromOtherPage, previousPages, setPreviousPages } =
+  const { isNavigatedFromOtherPage, previousPages, setPreviousPages } =
     useNavigation();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.navigateToPage = (path) => {
-      goToPage(path,setPreviousPages,navigate);
+    const cleanupSetupNavigateToPage = setupNavigateToPage(setPreviousPages, navigate);
+    const cleanupSetupNavigateBack = setupNavigateBack(previousPages, setPreviousPages, navigate);
+    return () => {
+      cleanupSetupNavigateToPage();
+      cleanupSetupNavigateBack();
     };
-    window.navigateBack = () => {
-      handleBack(previousPages,setPreviousPages,navigate);
-    };
-  }, [navigate]);
+  }, [navigate, setPreviousPages, previousPages]);
 
   useEffect(() => {
     if (!isNavigatedFromOtherPage) {
-      sendRouteToFlutter("timer", initialized);
+      sendRouteToFlutter(RouteDTO.timer, initialized);
     }
   }, [initialized, isNavigatedFromOtherPage]);
   
@@ -46,6 +45,7 @@ const BlocMultiPage = () => {
       containerRef.current.style.height = '800px';
     }
   }, [containerRef]);
+
   return (
     <div>
       <Navbar />
@@ -59,7 +59,6 @@ const BlocMultiPage = () => {
       <div className="w-full flex flex-row justify-end items-center pl-16 pr-16 mt-10">
         <button
           onClick={() => {
-            // navigate("/bloc-multi2");
             goToPage("/bloc-multi2",setPreviousPages,navigate);
             sendflutterTimerJourneyRoute("page2", initialized);
           }}
@@ -71,11 +70,6 @@ const BlocMultiPage = () => {
   );
 };
 export default BlocMultiPage;
-
-{
-  /* <BlocMultiComponent event={"flutter-timer"} duration={firstDuration}/>
-      <BlocMultiComponent event={"flutter-timer2"} duration={secondDuration}/> */
-}
 
 // const [firstDuration, setFirstDuration] = useState(60);
 // const [secondDuration, setSecondDuration] = useState(60);

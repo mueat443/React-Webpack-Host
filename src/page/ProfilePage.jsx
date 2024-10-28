@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import ProfileComponent from "../compenent/ProfileComponent";
 import Navbar from "../compenent/Navbar";
-import FlutterContainer from "../compenent/FlutterContainer";
+import FlutterContainer from "../compenent/ui/FlutterContainer";
 
 import { useFlutter } from "../context/FlutterProvider";
 import { Outlet } from "react-router-dom";
 import { KeepAlive } from "react-keep-alive";
-import { sendRouteToFlutter } from "../utils/FlutterRoute";
+import { sendRouteToFlutter,RouteDTO } from "../utils/FlutterRoute";
 
 const ProfilePage = () => {
   const { initialized, containerRef } = useFlutter();
 
   useEffect(() => {
-    sendRouteToFlutter("weather", initialized);
+    sendRouteToFlutter(RouteDTO.weather, initialized);
   }, [initialized]);
 
   useEffect(() => {    

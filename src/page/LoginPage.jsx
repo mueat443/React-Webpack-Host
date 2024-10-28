@@ -19,13 +19,11 @@ const LogInPage = () => {
         </span>
       </p>
       <LoginComponent />
-      <div style={{ display:'none' }}>
-      <KeepAlive name="flutter-container">
-      <FlutterContainer
-          containerRef={containerRef}
-        />
-      </KeepAlive>
-      <Outlet />
+      <div style={{ display: "none" }}>
+        <KeepAlive name="flutter-container">
+          <FlutterContainer containerRef={containerRef} />
+        </KeepAlive>
+        <Outlet />
       </div>
     </div>
   );

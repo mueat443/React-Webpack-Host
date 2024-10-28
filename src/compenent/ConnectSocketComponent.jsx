@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { LanguageStateContext } from "../context/LanguageStateContext";
-import Navbar from "./Navbar";
 import reactIcon from "../assets/react.svg";
 import { useSocketContext } from "../context/SocketContext";
 
 const ConnectSocketComponent = () => {
-  const { languageState, setLanguageState } = useContext(LanguageStateContext);
+  const { languageState } = useContext(LanguageStateContext);
   const { protocolVersion, flutterState } = useSocketContext(); 
   const [text, setText] = useState("");
 

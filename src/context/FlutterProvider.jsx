@@ -174,7 +174,6 @@
 // // Hook สำหรับเข้าถึง Flutter context
 // export const useFlutter = () => useContext(FlutterContext);
 
-// FlutterProvider.jsx
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 const FlutterContext = createContext();

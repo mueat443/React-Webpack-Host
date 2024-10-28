@@ -1,43 +1,40 @@
-(function() {
-  "use strict";
-  console.log("Interop.js loaded");
 
-  // This function receives the count from Flutter and updates the React UI
-  window.receiveCountFromFlutter = function(count) {
-    console.log('Received count from Flutter:', count);
-    // Update React or any other JS logic
-    if (window.updateReactCount) {
-      window.updateReactCount(count);
+export function setupNotifyStateChangeShop(onStateChangeCallback) {
+  window.notifyStateChangeShop = (state) => {
+    try {
+      const parsedData = JSON.parse(state);
+      const cartLength = parsedData.cart.items.length;
+      console.log("Parsed cart length from Flutter:", cartLength);
+      onStateChangeCallback(cartLength);
+    } catch (error) {
+      console.error("Failed to parse JSON:", error);
     }
   };
+  return () => {
+    delete window.notifyStateChangeShop;
+  };
+}
 
-  // Function to handle setting up state between Flutter and React
-  window._stateSet = function() {
-    console.log("Calling _stateSet");
-
-    if (!window._appState) {
-      console.error('Flutter _appState is not available');
-      return;
-    }
-
-    let appState = window._appState;
-    console.log('Flutter appState:', appState);
-
-    // Example: Automatically set the count in Flutter from React
-    appState.setCount(10); // Set an initial count value from React
-
-    // React can register a handler to listen for updates from Flutter
-    appState.addHandler(function(updatedCount) {
-      console.log('Received updated count from Flutter:', updatedCount);
-      // You can update the React UI here if needed
-    });
-
-    // Bind increment button in JS to Flutter's increment function
-    let incrementButton = document.querySelector("#increment");
-    incrementButton.addEventListener("click", () => {
-      if (appState) {
-        appState.increment(); // Call Flutter's increment method
+export function setupNotifyStateChangeSocket(setProtocolVersion) {
+  let parsedData;
+  window.notifyStateChangeSocket = (state) => {
+    try {
+      parsedData = JSON.parse(state);
+      if (parsedData.event) {
+        try {
+          const parsedEvent = JSON.parse(parsedData.event);
+          console.log("Parsed event:", parsedEvent);
+          setProtocolVersion(parsedEvent);
+        } catch (error) {
+          console.error("Failed to parse event JSON:", error);
+        }
       }
-    });
+    } catch (error) {
+      console.error("Failed to parse JSON:", error);
+    }
   };
-})();
+  return () => {
+    delete window.notifyStateChangeSocket;
+  };
+}
+
