@@ -1,13 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import "../index.scss";
 import Navbar from "../compenent/Navbar";
-import FlutterContainer from "../compenent/FlutterContainer";
+import FlutterContainer from "../compenent/ui/FlutterContainer";
 
 import { useNavigate } from "react-router-dom";
 import { useFlutter } from "../context/FlutterProvider";
 import { Outlet } from "react-router-dom";
 import { KeepAlive } from "react-keep-alive";
 import { sendRouteToFlutter,RouteDTO } from "../utils/FlutterRoute";
+import { setVerticalScreen } from "../utils/utils";
 
 const FlutterWithReactPage = () => {
   const { initialized,containerRef  } = useFlutter();
@@ -24,10 +25,7 @@ const FlutterWithReactPage = () => {
   }, [initialized]);
 
   useEffect(() => {    
-    if (containerRef.current) {
-      containerRef.current.style.width = '450px';
-      containerRef.current.style.height = '800px';
-    }
+    setVerticalScreen(containerRef)
   }, [containerRef]);
   
   return (

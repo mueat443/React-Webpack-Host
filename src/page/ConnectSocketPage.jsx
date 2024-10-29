@@ -1,7 +1,7 @@
 import React, {useEffect } from "react";
 import ConnectSocketComponent from "../compenent/ConnectSocketComponent";
 import Navbar from "../compenent/Navbar";
-import FlutterContainer from "../compenent/FlutterContainer";
+import FlutterContainer from "../compenent/ui/FlutterContainer";
 
 import { useFlutter } from "../context/FlutterProvider";
 import { Outlet } from "react-router-dom";

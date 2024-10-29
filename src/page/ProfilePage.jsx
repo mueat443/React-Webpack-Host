@@ -7,6 +7,7 @@ import { useFlutter } from "../context/FlutterProvider";
 import { Outlet } from "react-router-dom";
 import { KeepAlive } from "react-keep-alive";
 import { sendRouteToFlutter,RouteDTO } from "../utils/FlutterRoute";
+import { setHorizontalScreen } from "../utils/utils";
 
 const ProfilePage = () => {
   const { initialized, containerRef } = useFlutter();
@@ -16,10 +17,7 @@ const ProfilePage = () => {
   }, [initialized]);
 
   useEffect(() => {    
-    if (containerRef.current) {
-      containerRef.current.style.width = '1000px';
-      containerRef.current.style.height = '450px';
-    }
+    setHorizontalScreen(containerRef);
   }, [containerRef]);
 
 

@@ -14,33 +14,53 @@ import {
 import { useNavigation } from "../context/route/NavigationProvider ";
 import BackIcon from "../assets/backIcon.png";
 import ForwardIcon from "../assets/forwardIcon.png";
-import { goToPage, handleBack } from "../utils/FlutterRoute";
+import {
+  goToPage,
+  handleBack,
+  setupNavigateToPage,
+  setupNavigateBack,
+} from "../utils/FlutterRoute";
+import { setVerticalScreen } from "../utils/utils";
 
 const BlocMultiPage2 = () => {
   const { initialized, containerRef } = useFlutter();
-  const { isNavigatedFromOtherPage, setIsNavigatedFromOtherPage, previousPages, setPreviousPages } =
-    useNavigation();
+  const {
+    setIsNavigatedFromOtherPage,
+    previousPages,
+    setPreviousPages,
+  } = useNavigation();
   const navigate = useNavigate();
 
+  // useEffect นี้ใช้เพื่อเซ็ตอัพฟังก์ชัน navigate ไปยังหน้าใหม่และย้อนกลับหน้าเก่า
   useEffect(() => {
-    window.navigateToPage = (path) => {
-      goToPage(path,setPreviousPages,navigate);
+    // ตั้งค่า navigateToPage ให้เป็นฟังก์ชัน global
+    const cleanupSetupNavigateToPage = setupNavigateToPage(
+      setPreviousPages,
+      navigate
+    );
+    // ตั้งค่า navigateBack ให้เป็นฟังก์ชัน global
+    const cleanupSetupNavigateBack = setupNavigateBack(
+      previousPages,
+      setPreviousPages,
+      navigate
+    );
+    // ทำความสะอาดเมื่อ component ถูก unmount
+    return () => {
+      cleanupSetupNavigateToPage();
+      cleanupSetupNavigateBack();
     };
-    window.navigateBack = () => {
-      handleBack(previousPages,setPreviousPages,navigate);
-    };
-  }, [navigate]);
-  
-  useEffect(() => {                                             
+  }, [navigate, setPreviousPages, previousPages]);
+
+  // ตั้งค่า isNavigatedFromOtherPage เป็น true เมื่อมีการเข้าใช้งานหน้า BlocMultiPage2
+  useEffect(() => {
     setIsNavigatedFromOtherPage(true);
   }, []);
-  
+
+  // ตั้งค่าให้แอป Flutter แสดงผลในแนวตั้งโดยใช้ containerRef
   useEffect(() => {    
-    if (containerRef.current) {
-      containerRef.current.style.width = '450px';
-      containerRef.current.style.height = '800px';
-    }
+    setVerticalScreen(containerRef)
   }, [containerRef]);
+
   return (
     <div>
       <Navbar />
@@ -54,7 +74,7 @@ const BlocMultiPage2 = () => {
       <div className="w-full flex flex-row justify-between items-center space-x-10 pl-16 pr-16 mt-10">
         <button
           onClick={() => {
-            handleBack(previousPages,setPreviousPages,navigate);
+            handleBack(previousPages, setPreviousPages, navigate);
             sendflutterTimerJourneyRouteBack(initialized);
           }}
         >
@@ -62,7 +82,7 @@ const BlocMultiPage2 = () => {
         </button>
         <button
           onClick={() => {
-            goToPage("/bloc-multi3",setPreviousPages,navigate);
+            goToPage("/bloc-multi3", setPreviousPages, navigate);
             sendflutterTimerJourneyRoute("page3", initialized);
           }}
         >
@@ -74,7 +94,6 @@ const BlocMultiPage2 = () => {
 };
 
 export default BlocMultiPage2;
-
 
 // const [firstDuration, setFirstDuration] = useState(60);
 // const [secondDuration, setSecondDuration] = useState(60);

@@ -6,6 +6,7 @@ import { useFlutter } from "../context/FlutterProvider";
 import { Outlet } from "react-router-dom";
 import { KeepAlive } from "react-keep-alive";
 import { sendRouteToFlutter,RouteDTO } from "../utils/FlutterRoute";
+import { setVerticalScreen } from "../utils/utils";
 
 const ProductPage = () => {
   const { initialized, containerRef } = useFlutter();
@@ -15,18 +16,15 @@ const ProductPage = () => {
   }, [initialized]);
 
   useEffect(() => {    
-    if (containerRef.current) {
-      containerRef.current.style.width = '450px';
-      containerRef.current.style.height = '800px';
-    }
+    setVerticalScreen(containerRef)
   }, [containerRef]);
 
   return (
     <div>
       <Navbar />
-      {/* <KeepAlive name="flutter-container"> */}
+      <KeepAlive name="flutter-container">
         <FlutterContainer containerRef={containerRef} />
-      {/* </KeepAlive> */}
+      </KeepAlive>
       <Outlet />
     </div>
   );

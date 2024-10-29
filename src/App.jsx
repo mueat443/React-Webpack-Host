@@ -22,7 +22,7 @@ import { ProductStateProvider } from "./context/ProductStateContext";
 import { FlutterProvider } from "./context/FlutterProvider";
 import { SocketProvider } from "./context/SocketContext";
 import { Provider } from "react-keep-alive";
-import { NavigationProvider } from "./context/NavigationProvider ";
+import { NavigationProvider } from "./context/route/NavigationProvider ";
 import { WeatherStateProvider } from "./context/WeatherStateContext";
 
 const theme = createTheme({

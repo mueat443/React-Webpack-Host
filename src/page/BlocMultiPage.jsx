@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../compenent/Navbar";
-import FlutterContainer from "../compenent/FlutterContainer";
+import FlutterContainer from "../compenent/ui/FlutterContainer";
 
 import { useNavigate } from "react-router-dom";
 import { useFlutter } from "../context/FlutterProvider";
@@ -9,13 +9,17 @@ import { KeepAlive } from "react-keep-alive";
 import {
   sendRouteToFlutter,
   sendflutterTimerJourneyRoute,
-  RouteDTO
+  RouteDTO,
 } from "../utils/FlutterRoute";
-import { useNavigation } from "../context/NavigationProvider ";
+import { useNavigation } from "../context/route/NavigationProvider ";
 import ForwardIcon from "../assets/forwardIcon.png";
-import { goToPage, handleBack,setupNavigateToPage,setupNavigateBack } from "../utils/FlutterRoute";
-
-
+import {
+  goToPage,
+  handleBack,
+  setupNavigateToPage,
+  setupNavigateBack,
+} from "../utils/FlutterRoute";
+import { setVerticalScreen } from "../utils/utils";
 
 const BlocMultiPage = () => {
   const { initialized, containerRef } = useFlutter();
@@ -24,26 +28,36 @@ const BlocMultiPage = () => {
 
   const navigate = useNavigate();
 
+  // useEffect นี้ใช้เพื่อเซ็ตอัพฟังก์ชัน navigate ไปยังหน้าใหม่และย้อนกลับหน้าเก่า
   useEffect(() => {
-    const cleanupSetupNavigateToPage = setupNavigateToPage(setPreviousPages, navigate);
-    const cleanupSetupNavigateBack = setupNavigateBack(previousPages, setPreviousPages, navigate);
+    // ตั้งค่า navigateToPage ให้เป็นฟังก์ชัน global
+    const cleanupSetupNavigateToPage = setupNavigateToPage(
+      setPreviousPages,
+      navigate
+    );
+    // ตั้งค่า navigateBack ให้เป็นฟังก์ชัน global
+    const cleanupSetupNavigateBack = setupNavigateBack(
+      previousPages,
+      setPreviousPages,
+      navigate
+    );
+    // ทำความสะอาดเมื่อ component ถูก unmount
     return () => {
       cleanupSetupNavigateToPage();
       cleanupSetupNavigateBack();
     };
   }, [navigate, setPreviousPages, previousPages]);
 
+  // ถ้าไม่ได้มาจากหน้าอื่นไปให้ flutter หน้า timer
   useEffect(() => {
     if (!isNavigatedFromOtherPage) {
       sendRouteToFlutter(RouteDTO.timer, initialized);
     }
   }, [initialized, isNavigatedFromOtherPage]);
-  
-  useEffect(() => {    
-    if (containerRef.current) {
-      containerRef.current.style.width = '450px';
-      containerRef.current.style.height = '800px';
-    }
+
+  // ตั้งค่าให้แอป Flutter แสดงผลในแนวตั้งโดยใช้ containerRef
+  useEffect(() => {
+    setVerticalScreen(containerRef)
   }, [containerRef]);
 
   return (
@@ -59,7 +73,7 @@ const BlocMultiPage = () => {
       <div className="w-full flex flex-row justify-end items-center pl-16 pr-16 mt-10">
         <button
           onClick={() => {
-            goToPage("/bloc-multi2",setPreviousPages,navigate);
+            goToPage("/bloc-multi2", setPreviousPages, navigate);
             sendflutterTimerJourneyRoute("page2", initialized);
           }}
         >

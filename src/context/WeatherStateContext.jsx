@@ -7,7 +7,7 @@ export const WeatherStateContext = createContext();
 export const WeatherStateProvider = ({ children }) => {
 
   const [flutterState, setFlutterState] = useState(null);
-  const [country, setCountry] = useState(''); // Add country state
+  const [country, setCountry] = useState(''); 
 
   useEffect(() => {
     const cleanupFlutterListener = initializeFlutterListener("flutter-weather",setFlutterState);
